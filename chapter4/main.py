@@ -1,22 +1,22 @@
 from flask import Flask, Response
 from camera import Camera
-from processor import MotionDetector
+import cv2
 
 
 app = Flask(__name__)
-camera = Camera()
-processor = MotionDetector(camera)
+camera = Camera().start()
 
 
 def gen(camera):
     while True:
-        frame = processor.get_frame()
+        frame = camera.read()
+        _, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
         
 @app.route('/stream')
 def stream():
-    return Response(gen(processor),
+    return Response(gen(camera),
                 mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
