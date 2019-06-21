@@ -1,7 +1,6 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
-import cv2
 
 
 class Camera(object):
