@@ -29,7 +29,7 @@ class MotionDetector(object):
         thresh = cv2.erode(thresh, None, iterations=2)
         
         cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                                    cv2.CHAIN_APPROX_SIMPLE)[1]
+                                    cv2.CHAIN_APPROX_SIMPLE)[0]
         
         for c in cnts:
             if cv2.contourArea(c) < 500:
