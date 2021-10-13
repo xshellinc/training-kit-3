@@ -80,7 +80,7 @@ class SingleCounter(object):
         thresh = cv2.dilate(thresh, None, iterations=2)
         thresh = cv2.erode(thresh, None, iterations=2)
         cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                                    cv2.CHAIN_APPROX_SIMPLE)[1]
+                                    cv2.CHAIN_APPROX_SIMPLE)[]
                                     
         biggest_area = 800
         motion_found = False
